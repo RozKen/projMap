@@ -1,0 +1,9 @@
+newmtl material
+illum 2
+Kd 0.50 0.50 0.50
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+#map_Kd checker-patterns-2.gif
+map_Kd checker-patterns-2.jpg
+Ni 1.00
+Ks 0.50 0.50 0.50
