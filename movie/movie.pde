@@ -9,6 +9,8 @@ import processing.video.*;
 
 Movie myMovie;
 
+//henyohenyo
+
 void setup() {
   size(640, 480, P2D);
   background(0);
