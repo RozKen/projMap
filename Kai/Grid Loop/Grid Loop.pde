@@ -9,13 +9,11 @@ import processing.video.*;
 
 Movie myMovie;
 
-//henyohenyo
-
 void setup() {
   size(640, 480, P2D);
   background(0);
   // Load and play the video in a loop
-  myMovie = new Movie(this, "gate.mov");
+  myMovie = new Movie(this, "station.mov");
   myMovie.loop();
 }
 
@@ -25,5 +23,5 @@ void movieEvent(Movie myMovie) {
 
 void draw() {
   tint(255, 20);
-  image(myMovie, mouseX-myMovie.width/2, mouseY-myMovie.height/2);
+  image(myMovie, mouseX-mouseX%myMovie.width, mouseY-mouseY%myMovie.height);
 }
