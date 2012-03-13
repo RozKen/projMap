@@ -13,7 +13,7 @@ void setup() {
   size(640, 480, P2D);
   background(0);
   // Load and play the video in a loop
-  myMovie = new Movie(this, "presscube.mov");
+  myMovie = new Movie(this, "presscube_mini.mov");
   myMovie.play();
 }
 
