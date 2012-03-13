@@ -8,42 +8,53 @@
 import processing.video.*;
 
 Movie myMovie;
+Movie myMovie2;
+Image myStop;
 
 void setup() {
   size(640, 480, P2D);
   background(0);
-	// define unit size
-	int uz = 20;
-	int[][] unitcenterx = new int[width/uz][height/uz];
-	int[][] unitcentery = new int[width/uz][height/uz];
-	for (int i = 0; i < width/20 ; ++i){
-		for (int j = 0; j < height/20 ; ++j){
-			unitcenterx[i][j]=uz*i+uz/2;
-			unitcentery[i][j]=uz*i+uz/2;
-		}
-	}
   // Load and play the video in a loop
   myMovie = new Movie(this, "presscube_mini.mov");
-//  myMovie.loop();
-
-	print(unitarray[1][1]);
+  myMovie2 = new Movie(this, "presscube_mini.mov");
+	myStop = new Image(this, "presscube_mini.mov");
+	myMovie.speed(0.2);
+	myMovie2.speed(0.5);
+  myMovie.loop();
+  myMovie2.loop();	
 }
 void movieEvent(Movie myMovie) {
   myMovie.read();
 }
 
 void draw() {
-	int uz = myMovie.width;
+	//unit size
+	int uz = myMovie.width/1;
+	
+	//unit's corner where mouse on	
 	int mux = mouseX-mouseX%myMovie.width;
 	int muy = mouseY-mouseY%myMovie.height;
+	
 
-  background(0);
-  // tint(255, 20);  //Color Overlay
-  myMovie.loop();
-  image(myMovie, mux, muy);
-  image(myMovie, mux+uz, muy+uz);
-  //image(myMovie, mouseX, mouseY);
-	print(unitcenterx[1][1]);
+	if(myMovie.available()){
+	image(myMovie, mux-uz, muy);
+	image(myMovie, mux+uz, muy);	
+	image(myMovie, mux, muy-uz);
+	image(myMovie, mux, muy+uz);
+	}
+	if(myMovie.available()){
+	image(myStop, mux, muy);	
+	}
+}
+
+
+void slowplay() {
+
+}
+
+void normalplay(){
+//		myMovie.speed(1);
+//		image(myMovie, mux-uz, muy);
 }
 
 /*
