@@ -24,6 +24,12 @@ void movieEvent(Movie myMovie) {
 void draw() {
   background(0);
   // tint(255, 20);  //Color Overlay
+  myMovie.play();
   image(myMovie, mouseX-mouseX%myMovie.width, mouseY-mouseY%myMovie.height);
   //image(myMovie, mouseX, mouseY);
+}
+
+void mousePressed(){
+  myMovie.stop();
+  myMovie.play();
 }
