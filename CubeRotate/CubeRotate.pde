@@ -11,7 +11,7 @@ float boxSize = 40;
 color boxFill;
 
 //Camera Properties
-float camZoom = 400.0f;
+float camZoom = 130.0f;
 float camRotX = 0.0f;
 float camRotY = 0.0f;
 float camTX = 0.0f;
@@ -19,6 +19,8 @@ float camTY = 0.0f;
 //Mouse Properties
 int lastX = 0;
 int lastY = 0;
+int nowX = 0;
+int nowY = 0;
 boolean[] Buttons = {false, false, false};
 
 void setup(){
@@ -33,18 +35,23 @@ void draw(){
   translate(camTX + width/2, camTY + height/2, -camZoom);
   rotateX(camRotX);
   rotateY(camRotY);
-  //set Color
-  boxFill = color(255, 10, 100, 100);
-  fill(boxFill);
+  
   //DrawBoxes
   for(int i = -width / 2; i <= width / 2; i += boxSize){
     translate(i, 0, 0);
     for(int j = -height / 2; j <= height / 2; j += boxSize){
       translate(0, j, 0);
       //Rotate Object
-      rotateY(frameCount * 0.01);
+      if(i + boxSize >= nowX && i <= nowX && j + boxSize >= nowY && j <= nowY){
+        rotateY(frameCount * 0.1);
+      }
+      //set Color
+      boxFill = color(abs(i) % 255, abs(j) % 255, abs(i + j) % 25, 100);
+      fill(boxFill);
       box(boxSize, boxSize, boxSize);
-      rotateY(-frameCount * 0.01);
+      if(i + boxSize >= nowX && i <= nowX && j + boxSize >= nowY && j <= nowY){
+        rotateY(-frameCount * 0.1);
+      }
       translate(0, -j, 0);
     }
     translate(-i, 0, 0);
@@ -72,6 +79,11 @@ void mousePressed(){
     Buttons[2] = false;
   }
   
+}
+
+void mouseMoved(){
+  nowX = mouseX - width / 2;
+  nowY = mouseY - height / 2;
 }
 
 void mouseDragged(){
