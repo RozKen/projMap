@@ -13,8 +13,8 @@ void setup() {
   size(640, 480, P2D);
   background(0);
   // Load and play the video in a loop
-  myMovie = new Movie(this, "station.mov");
-  myMovie.loop();
+  myMovie = new Movie(this, "presscube.mov");
+  myMovie.play();
 }
 
 void movieEvent(Movie myMovie) {
