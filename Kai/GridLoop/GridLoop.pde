@@ -9,19 +9,20 @@ import processing.video.*;
 
 Movie myMovie;
 Movie myMovie2;
-Image myStop;
+Movie[][] myMovies;
 
 void setup() {
   size(640, 480, P2D);
   background(0);
   // Load and play the video in a loop
-  myMovie = new Movie(this, "presscube_mini.mov");
-  myMovie2 = new Movie(this, "presscube_mini.mov");
-//	myStop = new Image(this, "presscube_mini.mov");
-	myMovie.speed(0.2);
-	myMovie2.speed(0.5);
-  myMovie.loop();
-  myMovie2.loop();	
+	
+	for (int i = 0; i<20; i++){
+		for (int j = 0; j<20; j++){
+		 myMovies[i][j] = new Movie(this, "station.mov");
+		}
+	}
+	
+
 }
 void movieEvent(Movie myMovie) {
   myMovie.read();
@@ -35,16 +36,25 @@ void draw() {
 	int mux = mouseX-mouseX%myMovie.width;
 	int muy = mouseY-mouseY%myMovie.height;
 	
+		for (int i = 0; i<20; i++){
+			for (int j = 0; j<20; j++){
+				if(myMovies[i][j].available()){
+					myMovies[i][j].loop();
+					if (i == mux-1 || i == mux+1){				//for cubes next to on-cube
+						myMovies[i][j].speed(0.2);
+						image(myMovies[i][j], i*uz, j*muy);
+						}else if (i == mux) {									//for on-cube
+						myMovies[i][j].speed(0.5);
+						image(myMovies[i][j], i*uz, j*muy);
+					}
+				}
+			}
+		}
+	
 
-	if(myMovie.available()){
-	image(myMovie, mux-uz, muy);
-	image(myMovie, mux+uz, muy);	
-	image(myMovie, mux, muy-uz);
-	image(myMovie, mux, muy+uz);
-	}
-	if(myMovie.available()){
-	image(myMovie2, mux, muy);	
-	}
+	println(myMovies[3][3]);
+//	myMovie[3][3].loop();
+//	image(myMovie[3][3], 3*uz, 3*muy);
 }
 
 
