@@ -17,7 +17,7 @@ void setup() {
   // Load and play the video in a loop
   myMovie = new Movie(this, "presscube_mini.mov");
   myMovie2 = new Movie(this, "presscube_mini.mov");
-	myStop = new Image(this, "presscube_mini.mov");
+//	myStop = new Image(this, "presscube_mini.mov");
 	myMovie.speed(0.2);
 	myMovie2.speed(0.5);
   myMovie.loop();
@@ -43,7 +43,7 @@ void draw() {
 	image(myMovie, mux, muy+uz);
 	}
 	if(myMovie.available()){
-	image(myMovie, mux, muy);	
+	image(myMovie2, mux, muy);	
 	}
 }
 
