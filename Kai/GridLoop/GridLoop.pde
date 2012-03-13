@@ -22,6 +22,8 @@ void movieEvent(Movie myMovie) {
 }
 
 void draw() {
-  tint(255, 20);
+  background(0);
+  // tint(255, 20);  //Color Overlay
   image(myMovie, mouseX-mouseX%myMovie.width, mouseY-mouseY%myMovie.height);
+  //image(myMovie, mouseX, mouseY);
 }
