@@ -43,7 +43,7 @@ void draw() {
 	image(myMovie, mux, muy+uz);
 	}
 	if(myMovie.available()){
-	image(myStop, mux, muy);	
+	image(myMovie, mux, muy);	
 	}
 }
 
