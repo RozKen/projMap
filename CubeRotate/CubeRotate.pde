@@ -24,17 +24,25 @@ int nowY = 0;
 boolean[] Buttons = {false, false, false};
 
 void setup(){
-  size(800, 800, P3D);      //Use processing 3D
-  //size(800, 800, OPENGL);  //Use OpenGL
-  
+  //size(800, 800, P3D);      //Use processing 3D
+  size(800, 800, OPENGL);  //Use OpenGL
+  noStroke();
 }
 
 void draw(){
   background(0);
+  lights();
   //Update Camera
   translate(camTX + width/2, camTY + height/2, -camZoom);
   rotateX(camRotX);
   rotateY(camRotY);
+  
+  //About Lights - See http://r-dimension.xsrv.jp/classes_j/5_interactive3d/
+  //lights();  //Normal Light
+  //directionalLight(200, 200, 200, -1, 0, -1);
+  //pointLight(200, 200, 200, 0, 0, 0);
+  spotLight(200, 200, 200, 400, -400, 400, -1, 1, -1, PI/2, 10);
+  //shininess(5.0);
   
   //DrawBoxes
   for(int i = -width / 2; i <= width / 2; i += boxSize){
@@ -46,7 +54,8 @@ void draw(){
         rotateY(frameCount * 0.1);
       }
       //set Color
-      boxFill = color(abs(i) % 255, abs(j) % 255, abs(i + j) % 25, 100);
+      //boxFill = color(abs(i) % 255, abs(j) % 255, abs(i + j) % 25, 255);  //colorful
+      boxFill = color(200, 200, 200, 255);
       fill(boxFill);
       box(boxSize, boxSize, boxSize);
       if(i + boxSize >= nowX && i <= nowX && j + boxSize >= nowY && j <= nowY){
@@ -56,7 +65,9 @@ void draw(){
     }
     translate(-i, 0, 0);
   }
-  rotateY(-frameCount * 0.01);
+  translate(0, 0, boxSize);
+  fill(100, 100, 100, 255);
+  box(boxSize, boxSize, boxSize);
 }
 
 void mousePressed(){
