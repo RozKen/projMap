@@ -7,6 +7,8 @@
 import JMyron.*;
 
 JMyron m;//a camera object
+boolean isDebugging = false;
+int debugMode = 1;
 
 /**
   @brief set up processing application
@@ -15,7 +17,7 @@ void setup(){
   size(640,480);
   m = new JMyron();        //make a new instance of the object
   m.start(width,height);    //start a capture at screen size
-  m.trackColor(255, 0, 0, 256-70);  //track red color!!!!!!!!!!!
+  m.trackColor(243, 152, 0, 350);  //track red color!!!!!!!!!!!
   m.update();
 }
 
@@ -24,15 +26,29 @@ void setup(){
  */
 void draw(){
   m.update();//update the camera view
-  //onDraw();
-  onDebug(1);
+  if(isDebugging){
+    onDebug(1);
+  }else{
+    onDraw();
+  }
 }
 
 /**
   @brief Production Mode Display
  */
 void onDraw(){
-  
+    int[] img = m.differenceImage(); //get the normal image of the camera
+  int[] f = m.globsImage(); //get the normal image of the camera
+  int[] cam = m.cameraImage();
+  loadPixels();
+  for(int i=0;i<width*height;i++){ //loop through all the pixels
+    if(f[i] < 50){
+      pixels[i] = img[i]; //draw each pixel to the screen
+    }else{
+      pixels[i] = cam[i];
+    }
+  }
+  updatePixels();
 }
 
 /**
@@ -70,6 +86,24 @@ void mousePressed(){
     m.settings();//click the window to get the settings
   }else if(mouseButton == LEFT){
     //Nothing set
+  }
+}
+
+/**
+  @brief keyboard handler
+ */
+void keyPressed(){
+  switch(key){
+    case 'd':
+      isDebugging = !isDebugging;
+      break;
+    case '0':
+      if(debugMode == 0){
+        debugMode = 1;
+      }else{
+        debugMode = 0;
+      }
+      break;
   }
 }
 
