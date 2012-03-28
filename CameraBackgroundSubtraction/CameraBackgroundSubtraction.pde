@@ -34,9 +34,15 @@ void draw(){
 
 void drawCamera(){
   int[] img = m.differenceImage(); //get the normal image of the camera
+  int[] f = m.globsImage(); //get the normal image of the camera
+  int[] cam = m.cameraImage();
   loadPixels();
   for(int i=0;i<width*height;i++){ //loop through all the pixels
-    pixels[i] = img[i]; //draw each pixel to the screen
+    if(f[i] < 50){
+      pixels[i] = img[i]; //draw each pixel to the screen
+    }else{
+      pixels[i] = cam[i];
+    }
   }
   updatePixels();
 }
