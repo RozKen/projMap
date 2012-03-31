@@ -39,6 +39,8 @@ boolean cumulative = true;
 boolean controlIt = true;
 boolean freeze = false;
 
+boolean isMouseEnable = true;
+
 void setup()
 {
   background(0);
@@ -100,7 +102,7 @@ void onDraw(int effectMode) {
   case 1:    //ParticleWeb
     physics.update();
     int[][] p = m.globCenters();
-    if (p.length == 0) {
+    if (p.length == 0 || isMouseEnable) {
       physics.particles.get(0).x = mouseX;
       physics.particles.get(0).y = mouseY;
     }
@@ -245,6 +247,9 @@ void keyPressed() {
   case 'a':
     cumulative = !cumulative;
     background(255);
+    break;
+  case 'm':
+    isMouseEnable = !isMouseEnable;
   }
 }
 
@@ -277,7 +282,7 @@ void drawSoundParticle() {
   } 
   else {
     int[][] p = m.globCenters();
-    if (p.length == 0) {
+    if (p.length == 0 || isMouseEnable) {
       pos[counter].x = mouseX;
       pos[counter].y = mouseY;
     }
