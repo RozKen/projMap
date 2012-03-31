@@ -17,7 +17,7 @@ void setup(){
   size(640,480);
   m = new JMyron();        //make a new instance of the object
   m.start(width,height);    //start a capture at screen size
-  m.trackColor(243, 152, 0, 350);  //track red color!!!!!!!!!!!
+  m.trackColor(255, 0, 0, 256-10);  //track red color!!!!!!!!!!!
   m.update();
 }
 
@@ -27,7 +27,7 @@ void setup(){
 void draw(){
   m.update();//update the camera view
   if(isDebugging){
-    onDebug(1);
+    onDebug(debugMode);
   }else{
     onDraw();
   }
@@ -37,18 +37,7 @@ void draw(){
   @brief Production Mode Display
  */
 void onDraw(){
-    int[] img = m.differenceImage(); //get the normal image of the camera
-  int[] f = m.globsImage(); //get the normal image of the camera
-  int[] cam = m.cameraImage();
-  loadPixels();
-  for(int i=0;i<width*height;i++){ //loop through all the pixels
-    if(f[i] < 50){
-      pixels[i] = img[i]; //draw each pixel to the screen
-    }else{
-      pixels[i] = cam[i];
-    }
-  }
-  updatePixels();
+  
 }
 
 /**
@@ -75,6 +64,22 @@ void onDebug(int mode){
       for(int i = 0; i < p.length; i++){
         ellipse(p[i][0], p[i][1], 20, 20);
       }
+      break;
+      
+    case 2:  //ビデオ画像
+      int[] img = m.differenceImage(); //get the normal image of the camera
+      int[] f2 = m.globsImage(); //get the normal image of the camera
+      int[] cam = m.cameraImage();
+      loadPixels();
+      for(int i=0;i<width*height;i++){ //loop through all the pixels
+        if(f2[i] < 50){
+          pixels[i] = img[i]; //draw each pixel to the screen
+        }else{
+          pixels[i] = cam[i];
+        }
+      }
+      updatePixels();
+      break;
   }
 }
 
@@ -97,10 +102,12 @@ void keyPressed(){
     case 'd':
       isDebugging = !isDebugging;
       break;
-    case '0':
+    case 's':
       if(debugMode == 0){
         debugMode = 1;
-      }else{
+      }else if(debugMode == 1){
+        debugMode = 2;
+      }else if(debugMode == 2){
         debugMode = 0;
       }
       break;
