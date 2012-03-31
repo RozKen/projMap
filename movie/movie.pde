@@ -25,5 +25,5 @@ void movieEvent(Movie myMovie) {
 
 void draw() {
   tint(255, 20);
-  image(myMovie, mouseX-myMovie.width/2, mouseY-myMovie.height/2);
+  image(myMovie, mouseX-myMovie.width/2, mouseY-myMovie.height/2,width,height);
 }
