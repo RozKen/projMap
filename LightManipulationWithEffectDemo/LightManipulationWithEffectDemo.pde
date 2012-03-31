@@ -47,7 +47,7 @@ void setup()
   ///Camera Settings
   m = new JMyron();        //make a new instance of the object
   m.start(width, height);    //start a capture at screen size
-  m.trackColor(255, 0, 0, 256-10);  //track red color!!!!!!!!!!!
+  m.trackColor(255, 0, 0, 256-30);  //track red color!!!!!!!!!!!
   m.update();
 
   // Setting FFT
@@ -99,8 +99,15 @@ void onDraw(int effectMode) {
     break;
   case 1:    //ParticleWeb
     physics.update();
-    physics.particles.get(0).x = mouseX;
-    physics.particles.get(0).y = mouseY;
+    int[][] p = m.globCenters();
+    if (p.length == 0) {
+      physics.particles.get(0).x = mouseX;
+      physics.particles.get(0).y = mouseY;
+    }
+    else {
+      physics.particles.get(0).x = p[0][0];
+      physics.particles.get(0).y = p[0][1];
+    }
     drawParticleWeb();
     break;
   }
