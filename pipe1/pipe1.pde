@@ -27,9 +27,9 @@
   if (video.available()) {
     video.read();
     video.loadPixels();
-    int threshold = 200; // Set the threshold value
-    color[] outputPixelData = subtractBg(video.pixels, backgroundPixels);
-    //outputPixelData = BrightnessThresholding(outputPixelData, threshold);
+    int threshold = 180; // Set the threshold value
+    color[] outputPixelData2 = subtractBg(video.pixels, backgroundPixels);
+    color[] outputPixelData = BrightnessThresholding(outputPixelData2, threshold);
     
     loadPixels();
     arraycopy(outputPixelData, pixels);
@@ -37,7 +37,7 @@
     
     // Test a location to see where it is contained. Fetch the pixel at the test
     // location (the cursor), and compute its brightness
-    int testValue = get(mouseX, mouseY);
+    /*int testValue = get(mouseX, mouseY);
     float testBrightness = brightness(testValue);
     if (testBrightness > threshold) { // If the test location is brighter than
       fill(black); // the threshold set the fill to black
@@ -46,6 +46,7 @@
       fill(white); // set the fill to white
     }
     ellipse(mouseX, mouseY, 20, 20);
+    */
   }
 }
 

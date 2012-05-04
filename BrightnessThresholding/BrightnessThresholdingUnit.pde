@@ -20,7 +20,7 @@ color[] BrightnessThresholding(color[] pixelData, int threshold){
   
   // Turn each pixel in the video frame black or white depending on its brightness
   for (int i = 0; i < numPixels; i++) {
-    pixelBrightness = brightness(video.pixels[i]);
+    pixelBrightness = brightness(pixelData[i]);
     if (pixelBrightness > threshold) { // If the pixel is brighter than the
       outputPixelData[i] = white; // threshold value, make it white
     } 
