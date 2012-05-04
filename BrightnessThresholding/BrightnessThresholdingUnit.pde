@@ -1,4 +1,16 @@
-color[] BrightnessThredholding(color[] pixelData, int threshold){
+/**
+ * @fn Brightness Thresholding
+ * @brief Brightness Thresholding 
+ * Determines whether a test location (such as the cursor) is contained within
+ * the silhouette of a dark object.
+ * @author Golan Levin, edited by Kenichi Yorozu
+ * @date 4th May 2012
+ */
+
+color black = color(0);
+color white = color(255);
+
+color[] BrightnessThresholding(color[] pixelData, int threshold){
   float pixelBrightness; // Declare variable to store a pixel's color
   
   //Number of Pixels
