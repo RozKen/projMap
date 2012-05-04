@@ -9,6 +9,9 @@
  * @date 4th May 2012
  */
 color[] subtractBg(color[] pixelData, color[] bgPixelData){
+  
+  //Number of Pixels.
+  int numPixels = pixelData.length;
   //Declare return variable;
   color[] outputPixelData = new color[numPixels];
   
