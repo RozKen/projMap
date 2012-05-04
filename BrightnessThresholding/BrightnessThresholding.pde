@@ -29,19 +29,12 @@ void draw() {
     video.read();
     video.loadPixels();
     int threshold = 180; // Set the threshold value
-    float pixelBrightness; // Declare variable to store a pixel's color
-    // Turn each pixel in the video frame black or white depending on its brightness
+    color[] outputPixelData = BrightnessThredholding(video.pixels, threshold);
+    
     loadPixels();
-    for (int i = 0; i < numPixels; i++) {
-      pixelBrightness = brightness(video.pixels[i]);
-      if (pixelBrightness > threshold) { // If the pixel is brighter than the
-        pixels[i] = white; // threshold value, make it white
-      } 
-      else { // Otherwise,
-        pixels[i] = black; // make it black
-      }
-    }
+    arraycopy(outputPixelData, pixels);
     updatePixels();
+    
     // Test a location to see where it is contained. Fetch the pixel at the test
     // location (the cursor), and compute its brightness
     int testValue = get(mouseX, mouseY);
