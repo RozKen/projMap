@@ -10,6 +10,8 @@ import processing.opengl.*;
 float boxSize = 40;
 color boxFill;
 
+
+
 //Camera Properties
 float camZoom = 130.0f;
 float camRotX = 0.0f;
@@ -22,11 +24,39 @@ int lastY = 0;
 int nowX = 0;
 int nowY = 0;
 boolean[] Buttons = {false, false, false};
+/**
+ * @brief mode of interaction
+ * 0 : Y-rotation
+ * 1 : Z-translation
+ * default : 1
+ */
+int mode = 1;
+
+/// Number of Columns of box array
+int column = 32;
+/// Number of Rows of box array
+int row = 24;
+/**
+  @brief Values of each Boxes
+  values are gray colors. : 0-255
+ */
+int[][] values = new int[column][row];
 
 void setup(){
-  //size(800, 800, P3D);      //Use processing 3D
-  size(800, 800, OPENGL);  //Use OpenGL
+  int i = 2;
+  size(640 * i, 480 * i, P3D);      //Use processing 3D
+  //size(640, 480, OPENGL);  //Use OpenGL
+  //hint(ENABLE_DEPTH_SORT);  //Too Heavy
   noStroke();
+  int index = 0;
+  for(int k = 0; k < column; k++){
+    for(int j = 0; j < row; j++){
+      values[k][j] = ++index;
+      if(index > 255){
+        index = 0;
+      }
+    }
+  }
 }
 
 void draw(){
@@ -41,25 +71,38 @@ void draw(){
   //lights();  //Normal Light
   //directionalLight(200, 200, 200, -1, 0, -1);
   //pointLight(200, 200, 200, 0, 0, 0);
-  spotLight(200, 200, 200, 400, -400, 400, -1, 1, -1, PI/2, 10);
+  spotLight(200, 200, 200, 400, -400, 400, -1, 1, -1, PI/4, 10);
   //shininess(5.0);
   
   //DrawBoxes
-  for(int i = -width / 2; i <= width / 2; i += boxSize){
+  for(int i = -width / 2; i < width / 2; i += boxSize){
     translate(i, 0, 0);
-    for(int j = -height / 2; j <= height / 2; j += boxSize){
+    for(int j = -height / 2; j < height / 2; j += boxSize){
       translate(0, j, 0);
-      //Rotate Object
+      //Modify Object
       if(i + boxSize >= nowX && i <= nowX && j + boxSize >= nowY && j <= nowY){
-        rotateY(frameCount * 0.1);
-      }
-      //set Color
-      //boxFill = color(abs(i) % 255, abs(j) % 255, abs(i + j) % 25, 255);  //colorful
-      boxFill = color(200, 200, 200, 255);
-      fill(boxFill);
-      box(boxSize, boxSize, boxSize);
-      if(i + boxSize >= nowX && i <= nowX && j + boxSize >= nowY && j <= nowY){
-        rotateY(-frameCount * 0.1);
+        //set Color
+        boxFill = color(150, 150, 150, 255);
+        fill(boxFill);
+        switch(mode){
+          case 0:
+            rotateY(frameCount * 0.1);
+            box(boxSize, boxSize, boxSize);
+            rotateY(-frameCount * 0.1);
+            break;
+          case 1:
+            translate(0, 0, frameCount);
+            box(boxSize, boxSize, boxSize);
+            translate(0, 0, -frameCount);
+            break;
+          default:
+            break;
+        }
+      }else{
+        //set Color
+        boxFill = color(150, 150, 150, 255);
+        fill(boxFill);
+        box(boxSize, boxSize, boxSize);
       }
       translate(0, -j, 0);
     }
@@ -67,7 +110,20 @@ void draw(){
   }
   translate(0, 0, boxSize);
   fill(100, 100, 100, 255);
-  box(boxSize, boxSize, boxSize);
+  box(boxSize * 2, boxSize * 2, boxSize * 2);
+}
+
+void keyPressed(){
+  switch(key){
+    case '0':  /// Spin Mode
+      mode = 0;
+      break;
+    case '1':  /// Move Mode
+      mode = 1;
+      break;
+    default:
+      break;
+  }
 }
 
 void mousePressed(){
