@@ -7,10 +7,8 @@
 
 import processing.opengl.*;
 
-float boxSize = 40;
-color boxFill;
-
-
+float boxSize = 40;  ///Size of Box : w, h, d
+color boxFill;    /// Color of Box.
 
 //Camera Properties
 float camZoom = 130.0f;
@@ -80,8 +78,7 @@ void draw(){
     for(int j = 0; j < row; j++){
       translate(0, ( j - row / 2 ) * boxSize, 0);
       //Modify Object
-      if(i == nowX / column && j == nowY / row){
-        //print('i:' + i + ', nowX/column:' + nowX/column + 'nowY/row:' + nowY/row + '\n');
+      if(i == nowX / (width / column) && j == nowY / (height / row)){
         //set Color
         boxFill = color(150, 150, 150, 255);
         fill(boxFill);
@@ -163,8 +160,8 @@ void mousePressed(){
 }
 
 void mouseMoved(){
-  nowX = mouseX - width / 2;
-  nowY = mouseY - height / 2;
+  nowX = mouseX;
+  nowY = mouseY;
 }
 
 void mouseDragged(){
