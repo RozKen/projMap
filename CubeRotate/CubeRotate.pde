@@ -75,12 +75,13 @@ void draw(){
   //shininess(5.0);
   
   //DrawBoxes
-  for(int i = -width / 2; i < width / 2; i += boxSize){
-    translate(i, 0, 0);
-    for(int j = -height / 2; j < height / 2; j += boxSize){
-      translate(0, j, 0);
+  for(int i = 0; i < column; i++){
+    translate( ( i - column / 2 ) * boxSize, 0, 0);
+    for(int j = 0; j < row; j++){
+      translate(0, ( j - row / 2 ) * boxSize, 0);
       //Modify Object
-      if(i + boxSize >= nowX && i <= nowX && j + boxSize >= nowY && j <= nowY){
+      if(i == nowX / column && j == nowY / row){
+        //print('i:' + i + ', nowX/column:' + nowX/column + 'nowY/row:' + nowY/row + '\n');
         //set Color
         boxFill = color(150, 150, 150, 255);
         fill(boxFill);
@@ -99,18 +100,32 @@ void draw(){
             break;
         }
       }else{
+        int value = values[i][j];
         //set Color
-        boxFill = color(150, 150, 150, 255);
+        boxFill = color(value, value, value, 255);
         fill(boxFill);
-        box(boxSize, boxSize, boxSize);
+        switch(mode){
+          case 0:
+            rotateY(frameCount * 0.1 * value);
+            box(boxSize, boxSize, boxSize);
+            rotateY(-frameCount * 0.1 * value);
+            break;
+          case 1:
+            translate(0, 0, value);
+            box(boxSize, boxSize, boxSize);
+            translate(0, 0, -value);
+            break;
+          default:
+            break;
+        }
       }
-      translate(0, -j, 0);
+      translate(0, -( j - row / 2 ) * boxSize, 0);
     }
-    translate(-i, 0, 0);
+    translate(- ( i - column / 2 ) * boxSize, 0, 0);
   }
-  translate(0, 0, boxSize);
-  fill(100, 100, 100, 255);
-  box(boxSize * 2, boxSize * 2, boxSize * 2);
+//  translate(0, 0, boxSize);
+//  fill(100, 100, 100, 255);
+//  box(boxSize * 2, boxSize * 2, boxSize * 2);
 }
 
 void keyPressed(){
@@ -145,7 +160,6 @@ void mousePressed(){
   }else{
     Buttons[2] = false;
   }
-  
 }
 
 void mouseMoved(){
