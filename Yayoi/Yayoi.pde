@@ -6,7 +6,7 @@ import processing.video.*;
 
 MovieMaker mm;
 
-int NUM_PARTICLES = 1;
+int NUM_PARTICLES = 1000;
 int minr = 10;
 int maxr = 20;
 int offset = 5;
@@ -18,7 +18,7 @@ AttractionBehavior mouseAttractor;
 Vec2D mousePos;
 
 void setup() {
-  size(800, 600);
+  size(1920, 1280, P2D);
   mm = new MovieMaker(this, width, height, "drawing.mov");
   smooth();
   // setup physics with 10% drag
