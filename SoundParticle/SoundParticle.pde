@@ -27,8 +27,8 @@ void setup()
 {
 	background(0);
   //size(400, 300);
-  //size(800, 600);
-  size(1980, 1280, P2D);
+  size(1280, 800, P2D);
+  //size(1980, 1280, P2D);
 
 	// Setting FFT
   minim = new Minim(this);

@@ -6,11 +6,11 @@ import processing.video.*;
 
 MovieMaker mm;
 
-int NUM_PARTICLES = 1000;
-int minr = 10;
-int maxr = 20;
+int NUM_PARTICLES = 750;
+int minr = 15;
+int maxr = 30;
 int offset = 5;
-float jitter = 0.01f;
+float jitter = 0.1f;
 
 VerletPhysics2D physics;
 AttractionBehavior mouseAttractor;
@@ -18,7 +18,7 @@ AttractionBehavior mouseAttractor;
 Vec2D mousePos;
 
 void setup() {
-  size(1920, 1280, P2D);
+  size(1280, 960);  //P2Dがない方が早く動く…!?!?
   mm = new MovieMaker(this, width, height, "drawing.mov");
   smooth();
   // setup physics with 10% drag
@@ -46,7 +46,8 @@ void addParticle(float radius, int x, int y) {
 void draw() {
   background(0);
   noStroke();
-  fill(0,0,255);
+  //fill(random(255), random(255), random(255));
+  fill(0,255,255);
 
   if (physics.particles.size() < NUM_PARTICLES) {
     for (int i = 0; i<NUM_PARTICLES; i++){
@@ -62,6 +63,7 @@ void draw() {
   
   for (int i = 0; i<physics.particles.size(); i++){
     Particle p = (Particle) physics.particles.get(i);
+    //fill(random(200), random(200), random(200));
     ellipse(p.x, p.y, p.radius, p.radius);
   }
 //  mm.addFrame();
@@ -80,7 +82,7 @@ class Particle extends VerletParticle2D{
 void mousePressed() {
   mousePos = new Vec2D(mouseX, mouseY);
   // create a new positive attraction force field around the mouse position (radius=250px)
-  mouseAttractor = new AttractionBehavior(mousePos, 250, -0.1f);
+  mouseAttractor = new AttractionBehavior(mousePos, 250, -0.5f);
   physics.addBehavior(mouseAttractor);
 }
 
