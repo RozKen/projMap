@@ -26,7 +26,7 @@ final float ACCELERATION = 0.01;  // 加速度
 void setup()
 {
 	background(0);
-  size(400, 300);
+  size(800, 600);
 
 	// Setting FFT
   minim = new Minim(this);
@@ -49,7 +49,7 @@ void setup()
     pos[i] = new PVector(0, height * 2);
     vel[i] = new PVector();
   }
-
+  framerate(15);
 }
 
 void draw()
